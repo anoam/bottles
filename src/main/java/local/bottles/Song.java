@@ -1,16 +1,44 @@
 package local.bottles;
 
+import java.util.Collections;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
+
 public class Song {
 
     public String verse(int number) {
-        return "";
+        switch (number) {
+            case 0:
+                return "No more bottles of beer on the wall, " +
+                        "no more bottles of beer.\n" +
+                        "Go to the store and buy some more, " +
+                        "99 bottles of beer on the wall.\n";
+
+            case 1:
+                return  "1 bottle of beer on the wall, " +
+                        "1 bottle of beer.\n" +
+                        "Take it down and pass it around, " +
+                        "no more bottles of beer on the wall.\n";
+            case 2:
+                return "2 bottles of beer on the wall, " +
+                        "2 bottles of beer.\n" +
+                        "Take one down and pass it around, " +
+                        "1 bottle of beer on the wall.\n";
+            default:
+                return number + " bottles of beer on the wall, " +
+                        number + " bottles of beer.\n" +
+                        "Take one down and pass it around, " +
+                        (number - 1) + " bottles of beer on the wall.\n";
+        }
     }
 
     public String verses(int starting, int ending) {
-        return "";
+        return IntStream
+                .rangeClosed(ending, starting).boxed().sorted(Collections.reverseOrder())
+                .map(this::verse).collect(Collectors.joining("\n"));
     }
 
     public String whole() {
-        return "";
+        return verses(99, 0);
     }
 }
